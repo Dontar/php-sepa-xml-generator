@@ -824,16 +824,14 @@ interface PaymentInfoInterface {
 			}
 			$paymentInfo->addChild('PmtMtd', $this->getPaymentMethod());
 
-			if ($this->getDocumentPainMode() != self::PAIN_001_001_03) {
-				if ( !$this->getCreditTransferTransactionObjects() ) {
-					$paymentInfo->addChild('BtchBookg', $this->boolToString($this->getBatchBooking()));
+			$paymentInfo->addChild('BtchBookg', $this->boolToString($this->getBatchBooking()));
+			if ( !$this->getCreditTransferTransactionObjects() ) {
+				if ($this->getDocumentPainMode() != self::PAIN_001_001_03) {
 					$paymentInfo->addChild('NbOfTxs', $this->getNumberOfTransactions());
 					$paymentInfo->addChild('CtrlSum', $this->getControlSum());
 				}
 
 			}
-
-
 
 			$this->addPaymentTypeInfoToXml($paymentInfo);
 
